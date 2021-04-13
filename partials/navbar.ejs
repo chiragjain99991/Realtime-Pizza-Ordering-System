@@ -1,0 +1,38 @@
+<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light ">
+    <div class="container-fluid">
+        <a style="margin-left:2%;" class="navbar-brand" href="#"><img src="/images/logo.png"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+
+            <div class="navbar-nav">
+                <!-- <a class="nav-link active" aria-current="page" href="/">HOME</a>
+                <a class="nav-link" href="/movies">MOVIES</a>
+                <a class="nav-link" href="/shows">TV-SHOWS</a>
+                <a class="nav-link" href="/tickets">Book Tickets</a> -->
+            </div>
+
+            <div class="navbar-nav" style="margin-left: auto;">
+                <a class="nav-link px-3" href="/menu">Menu</a>
+                <a class="nav-link px-3" href="/myOffers">Offers</a>
+                <a class="nav-link px-3" href="/myOrders">My Orders</a>
+
+               <%if(currentUser){%>
+                <a class="nav-link px-3" href="/logout">logout</a>
+
+               <%}else {%>
+                <a class="nav-link px-3" href="/login">LogIn</a>
+                <a class="nav-link px-3" href="/register">Register</a>
+
+               <%}%>
+
+                        <a class="nav-link" href="/cart"><img src="/images/cart-black.png"></a>
+                       
+
+            </div>
+
+        </div>
+    </div>
+</nav>

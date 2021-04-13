@@ -1,0 +1,36 @@
+<% layout('../layouts/boilerplate') %>
+
+    <body style="background-repeat:no-repeat; background-size:cover;background-image:url(background.jpg);">
+        <center>
+            <div style="margin-top: 5%;"></div>
+            <div class="card" style="width: 30%; height: auto; margin-top: 1%; background-color: #292626;">
+                <div style="margin-top: 15%;"></div>
+                <div class="card-body">
+                    <h5 class="card-title" style="color: white;">LOGIN</h5>
+                    <hr class="solid" style="width: 70%; height: 2px; background-color:seagreen">
+                    <form action="/login" method="POST">
+                        <div class="mb-3 row">
+                            <label for="username" class="col-sm-5 col-form-label" style="color: white;">Username</label>
+                            <div class="col-sm-10">
+                                <input required name="username" style="margin-left: 9%;" type="text"
+                                    class="form-control" id="username" placeholder="Username">
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="inputPassword" class="col-sm-5 col-form-label"
+                                style="color: white;">Password</label>
+                            <div class="col-sm-10">
+                                <input required type="password" class="form-control" id="inputPassword" name="password"
+                                    style="margin-left: 10%;">
+                            </div>
+
+                        </div>
+                        <br />
+                        <button class="btn btn-primary"
+                            style=" margin-bottom:10%; background-color: rgb(62, 73, 218); width: 80%;">LOGIN</button>
+                    </form>
+                </div>
+            </div>
+        </center>
+
+    </body>
