@@ -1,0 +1,123 @@
+<% layout('../layouts/boilerplate') %>
+<style>
+
+
+.title{
+    margin-bottom: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.insideRow{
+     text-align: center;
+     align-items: center;
+     margin-bottom: 30px;
+}
+.category{
+    font-size: 20px;
+    font-weight: 300;
+}
+   
+.image img{
+    width: 100px;
+}
+
+.name{
+    font-family: cursive;
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.size{
+    font-size: 22px;
+    font-weight: 400;
+}
+
+.size1{
+    font-size: 18px;
+    font-weight: 400;
+}
+.rowTitle{
+        font-size: 14px;
+        font-weight: 400;
+       
+    }
+.rowValue{
+        font-size: 18px;
+        font-weight: 500;
+}
+
+@media screen and (max-width: 480px) {
+    .size{
+        font-size: 12px;
+        font-weight: 400;
+    }
+
+}
+
+</style>
+<body>
+    
+    <div class="container mt-3">
+        <h2 class="title">Orders</h2>
+        <hr style="margin-bottom: 25px;">
+       
+       <% if(orders.length > 0) { %>
+        <div class="row">
+            <div class="col-12">
+                <div class="d-none d-md-flex  row insideRow">
+                    <div class="col-4 category">
+                        Orders
+                    </div>
+                    <div class="col-3 category">
+                        Phone
+                    </div>
+                    <div class="col-3 category">
+                        Address
+                    </div>
+                    <div class="col-2 category">
+                        Time
+                    </div>
+
+                </div>
+                <hr class="d-none d-md-block" style="margin-bottom: 25px;">
+
+            </div>
+            <% for(let order of orders) { %>
+            <div class=" col-12">
+                <div class="d-block d-md-none">
+                    <a href="/checkStatus/<%= order._id %>"><%= order._id %></a>
+                    <div><span class="rowTitle">PHONE: </span><span class="rowValue"><%= order.phone %></span></div>
+                    <div><span class="rowTitle">Address: </span><span class="rowValue"><%= order.address %></span></div>
+                    <div><span class="rowTitle">Time: </span><span class="rowValue"><%= moment(order.createdAt).format('hh:mm A') %></span></div>
+                </div>
+                <div class="d-none d-md-flex row insideRow">
+                    <div class="col-4 size1">
+                        <a href="/checkStatus/<%= order._id %>"><%= order._id %></a>
+                    </div>
+                    <div class="col-3 size">
+                        <%= order.phone %>
+                    </div>
+                    <div class="col-3 size">
+                        <%= order.address %>
+                    </div>
+                    <div class="col-2 size">
+                        <%= moment(order.createdAt).format('hh:mm A') %>
+                    </div>
+
+                </div>
+                <hr style="margin-bottom: 25px;">
+
+            </div>
+            <% } %>
+        </div>
+       <% } else { %>
+        <div class="mb-2" style="display: flex;justify-content: center;">
+            <img src="https://pbs.twimg.com/profile_images/571523993903976448/y9jFFs3e_400x400.png"/>
+        </div>
+        <div style="display: flex;justify-content: center;">
+            <h2>NO ORDERS PLACED YET!</h2>
+        </div>
+       <% } %>
+
+    </div>
+</body>

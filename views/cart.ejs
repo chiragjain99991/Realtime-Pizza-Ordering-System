@@ -1,0 +1,239 @@
+<% layout('../layouts/boilerplate') %>
+
+<style>
+
+.StripeElement{
+    display: block;
+    width: 80%;
+    padding: 10px .75rem;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.title{
+    margin-bottom: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.insideRow{
+     text-align: center;
+     align-items: center;
+     margin-bottom: 30px;
+}
+.category{
+    font-size: 20px;
+    font-weight: 300;
+}
+   
+.image img{
+    width: 100px;
+}
+
+.name{
+    font-family: cursive;
+    font-size: 26px;
+    font-weight: 600;
+}
+.size{
+    font-size: 22px;
+    font-weight: 400;
+}
+.submitbutton{
+    margin-top:4%; 
+    background-color: rgb(255, 173, 243); 
+    
+    color: black;
+    border: none;
+    outline: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.formContainer{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.formDetails{
+    width: 25rem;
+}
+
+@media screen and (max-width: 750px) {
+    .title{
+        margin-left: 10px;
+    }
+    .container{
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .row{
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+    .category{
+        font-size: 12px;
+        font-weight: 500;
+    }
+    .quantity{
+        left:-14px
+    }
+    .name{
+        font-family: cursive;
+        font-size: 15px;
+        font-weight: 300;
+        padding: 0px;
+        padding-left: 2px;
+    }
+
+    .size{
+        font-size: 15px;
+        font-weight: 200;
+    }
+    .formContainer{
+        display: block;
+    }
+    .formDetails{
+        width: 100%;
+    }
+
+    .StripeElement{
+        display: block;
+        width: 100%;
+        padding: 10px .75rem;
+        margin-left: 15px;
+        margin-right: 15px;
+        font-size: 1.2rem;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    } 
+    .submitbutton{
+        margin-top: 25px;
+        margin-bottom: 25px;
+    }
+
+
+}
+
+
+
+</style>
+<body>
+    
+    <div class="container mt-3">
+        <h2 class="title">Cart</h2>
+        <hr style="margin-bottom: 25px;">
+        <% var user = currentUser %>
+        <% if(cart.length > 0) { %>
+            <div class="row">
+                <div class="col-12">
+                    <div class="row insideRow">
+                        <div class="d-none d-md-block col-2 category">
+                            IMAGE
+                        </div>
+                        <div class="col-4 col-md-3 category">
+                            NAME
+                        </div>
+                        <div class="col-3 col-md-3 category">
+                            SIZE
+                        </div>
+                        <div class="col-2 col-md-2 category quantity">
+                            QUANTITY
+                        </div>
+                        <div class="col-3 col-md-2 category">
+                            PRICE
+                        </div>
+                    </div>
+                    <hr style="margin-bottom: 25px;">
+    
+                </div>
+                <% for(let pizza of cart) { %>
+                <div class="col-12">
+                    <div class="row insideRow">
+                        <div class="d-none d-md-block col-md-2 image">
+                            <img src="/images/pizza.png"/>
+                        </div>
+                        <div class="col-4 col-md-3 name">
+                            <%= pizza.name%>
+                        </div>
+                        <div class="col-3 col-md-3 size">
+                            <%= pizza.size%>
+                        </div>
+                        <div class="col-2 col-md-2 size">
+                            1
+                        </div>
+                        <div class="col-3 col-md-2 size" style="font-weight: 700;">
+                            $<%= pizza.price%>
+                        </div>
+                    </div>
+                    <hr style="margin-bottom: 25px;">
+    
+                </div>
+                <% } %>
+            </div>
+            <form id="myForm" action="/order/<%= currentUser._id %>" method="POST">
+                               <div class="container ">
+                                  <div class="formContainer">
+                                    <div class="row formDetails">
+                                        <label  for="address" class="col-sm-5 col-form-label pl-3 pl-md-5" >Payment</label>
+                                        <div class="col-sm-7 p-md-0">
+                                            <select class="form-control" name="paymentMethod" id="paymentMethod" onchange="myFunction()">
+                                                <option  value="Cash On Delivery">Cash On Delivery</option>
+                                                <option  value="Card">Card</option>
+                                            </select>
+                                        </div>
+    
+                                        <label  for="address" class="col-sm-5 col-form-label pl-3 pl-md-5 mt-4" >Address</label>
+                                        <div class="col-sm-7 mt-sm-4  p-md-0 ">
+                                            <input required name="address" type="text"
+                                                class="form-control" id="address" placeholder="Enter Address">
+                                        </div>
+        
+                                    <label  for="phone" class="col-sm-5 col-form-label mt-4 pl-3 pl-md-5" >Phone</label>
+                                    <div class="col-sm-7 mt-sm-4 p-md-0">
+                                       <input required name="phone"  type="number"
+                                            class="form-control" id="phone" placeholder="Enter Number">
+                                    </div>
+                                    <label style="display: none;"   class="col-sm-5 col-form-label mt-4 pl-3 pl-md-5" id="cardDetailsLabel">Card Details</label>
+                                    <div style="display: none;"  id="card-widget" class="col-sm-7 mt-sm-4">
+                                       
+                                    </div>
+                                    </div>
+                                  </div>
+    
+                                   <div style="display: flex;justify-content: center;">
+                                    <button id="submitButton"
+                                    class="submitbutton">PLACE ORDER</button>
+                                   </div>
+                               </div>
+    
+    
+                                
+            </form>
+        <% } else { %>
+            <div class="mb-2" style="display: flex;justify-content: center;">
+                <img src="https://cdn.iconscout.com/icon/free/png-512/customer-doing-shopping-1106800.png"/>
+            </div>
+            <div style="display: flex;justify-content: center;">
+                <h2>YOUR CART IS EMPTY</h2>
+            </div>
+        <% } %>
+    </div>
+</body>
+<script>
+    // stringify the data passed from router to ejs (within the EJS template only)
+    var parsed_data = '<%- JSON.stringify(currentUser) %>'  
+    var parsed_cart = '<%- JSON.stringify(cart) %>'  
+</script>
+
+<script src="/js/order.js"></script>

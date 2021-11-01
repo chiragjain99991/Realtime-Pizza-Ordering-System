@@ -1,0 +1,292 @@
+<% layout('../layouts/boilerplate') %>
+
+<style>
+
+
+.title{
+    margin-bottom: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.insideRow{
+     /* text-align: center;
+     align-items: center; */
+     margin-bottom: 30px;
+}
+.category{
+    font-size: 20px;
+    font-weight: 300;
+}
+   
+.image img{
+    width: 100px;
+}
+
+.name{
+    font-family: cursive;
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.size{
+    font-size: 22px;
+    font-weight: 400;
+}
+
+.size1{
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.size1 ul{
+    padding-left: 0px;
+}
+
+.size1 ul li{
+    list-style: none;
+    text-align: start;
+}
+.rowTitle{
+        font-size: 18px;
+        font-weight: 300;
+       
+    }
+.rowValue{
+        font-size: 18px;
+        font-weight: 500;
+}
+
+.block{
+  margin: 4px 0px;
+  border-top: 2px solid lightgray;
+  /* border-bottom: 1px solid lightgray; */
+}
+
+.largescreen{
+    display: flex;
+}
+
+.smallscreen{
+    display: none;
+}
+
+
+
+
+
+@media screen and (max-width: 1010px) {
+    .smallscreen{
+        display: block;
+    }
+    .largescreen{
+        display: none;
+    }
+}
+
+</style>
+<body>
+    
+    <div class="container mt-3">
+        <h2 class="title">Orders</h2>
+        <hr style="margin-bottom: 25px;border-bottom: 3px solid black;">
+       <% if(orders.length > 0) { %>
+        <div class="row">
+            <div class="col-12">
+                <div class="d-none d-md-flex row insideRow">
+                    <div class="col-3 category">
+                        Orders
+                    </div>
+                    <div class="col-2 category">
+                        Customer
+                    </div>
+                    <div class="col-3 category">
+                        Address
+                    </div>
+                    <div class="col-2 category">
+                        Status
+                    </div>
+                    <div class="col-2 category">
+                        Time
+                    </div>
+
+                </div>
+                <hr class="d-none d-md-flex" style="margin-bottom: 25px;border-bottom: 3px solid black;">
+
+            </div>
+            <div id="allOrders" style="width: 100%;">
+                            
+            <% for(let order of orders) { %>
+               
+                <div class="col-12">
+                    <div class="smallscreen">
+                        <a href="#"><%= order._id %></a>
+
+                        <div class="block">
+                            <div style="color: #f90cb0;">Order Details: </div>
+                            <div>
+                                <div><span class="rowTitle">Items: </span>
+                                    <span class="rowValue">
+                                        <ul style="margin-top: 4px;">
+                                            <% order.items.map((item) => { %>
+                                                <li><%= item.name %> pizza - 1 pcs</li>
+                                                <% }) %>
+                                        </ul>
+                                    </span>
+                                </div>
+                                <div><span class="rowTitle">Time: </span><span class="rowValue"><%= moment(order.createdAt).format('hh:mm A') %></span></div>
+                            </div>
+                        </div>
+
+                        
+                        <div class="block">
+                            <div style="color: #f90cb0;">User Details: </div>
+                            <div>
+                                <div><span class="rowTitle">Username: </span><span class="rowValue"><%= order.customerId.username %></span></div>
+                                <div><span class="rowTitle">Address: </span><span class="rowValue"><%= order.address %></span></div>
+                            </div>
+                        </div>
+
+                        <div class="block">
+                            <div style="color: #f90cb0;">Payment Details: </div>
+                            <div>
+                                <div><span class="rowTitle">Payment Method: </span><span class="rowValue"><%= order.paymentMethod %></span></div>
+                                <div><span class="rowTitle">Payment Status: </span><span class="rowValue"><%- order.paymentStatus ?  "PAID" : "UNPAID" %></span></div>
+                            </div>
+                        </div>
+                        <div class="block">
+                            <div style="color: #f90cb0;">Status: </div>
+                            <div>
+                                <form action="/changeStatus/<%= order._id %>" method="POST">
+                                    <select name="status" id="myselect" onchange="this.form.submit()">
+                                        <% if(order.status === "order_placed") { %>
+                                            <option selected value="order_placed">Placed</option>
+                                        <% } else { %>
+                                            <option value="order_placed">Placed</option>
+                                        <% } %>
+        
+                                        <% if(order.status === "Confirmed") { %>
+                                            <option selected value="Confirmed">Confirmed</option>
+                                        <% } else { %>
+                                            <option value="Confirmed">Confirmed</option>
+                                        <% } %>
+        
+                                        <% if(order.status === "Prepared") { %>
+                                            <option selected value="Prepared">Prepared</option>
+                                        <% } else { %>
+                                            <option value="Prepared">Prepared</option>
+                                        <% } %>
+        
+                                        <% if(order.status === "Delivered") { %>
+                                            <option selected value="Delivered">Delivered</option>
+                                        <% } else { %>
+                                            <option value="Delivered">Delivered</option>
+                                        <% } %>
+        
+                                        <% if(order.status === "Completed") { %>
+                                            <option selected value="Completed">Completed</option>
+                                        <% } else { %>
+                                            <option value="Completed">Completed</option>
+                                        <% } %>
+                                        
+                                        
+                                        
+                                        
+                                        
+                                    </select>
+                                </form>
+                            </div>
+                        </div>
+
+
+                       
+
+
+                        
+                        
+                    </div>
+                    <div class="largescreen row insideRow">
+                        <div class="col-3 size1">
+                            <%= order._id %>
+                            <ul style="margin-top: 4px;">
+                                <% order.items.map((item) => { %>
+                                    <li><%= item.name %> pizza - 1 pcs</li>
+                                    <% }) %>
+                            </ul>
+                            <hr style="border-bottom: 1px solid black;opacity: 0.3;">
+                            <p><span style="font-weight: 250;">PAYMENT METHOD:</span> <%= order.paymentMethod %></p>
+                            <p style="margin-bottom: 0px;"><span style="font-weight: 250;">PAYMENT STATUS: </span><%- order.paymentStatus ?  "PAID" : "UNPAID" %></p>
+                        </div>
+                        <div class="col-2 category">
+                            <%= order.customerId.username %>
+                        </div>
+                        <div class="col-3 category">
+                            <%= order.address %>
+                        </div>
+                        <div class="col-2 category">
+                            <form action="/changeStatus/<%= order._id %>" method="POST">
+                                <select name="status" id="myselect" onchange="this.form.submit()">
+                                    <% if(order.status === "order_placed") { %>
+                                        <option selected value="order_placed">Placed</option>
+                                    <% } else { %>
+                                        <option value="order_placed">Placed</option>
+                                    <% } %>
+    
+                                    <% if(order.status === "Confirmed") { %>
+                                        <option selected value="Confirmed">Confirmed</option>
+                                    <% } else { %>
+                                        <option value="Confirmed">Confirmed</option>
+                                    <% } %>
+    
+                                    <% if(order.status === "Prepared") { %>
+                                        <option selected value="Prepared">Prepared</option>
+                                    <% } else { %>
+                                        <option value="Prepared">Prepared</option>
+                                    <% } %>
+    
+                                    <% if(order.status === "Delivered") { %>
+                                        <option selected value="Delivered">Delivered</option>
+                                    <% } else { %>
+                                        <option value="Delivered">Delivered</option>
+                                    <% } %>
+    
+                                    <% if(order.status === "Completed") { %>
+                                        <option selected value="Completed">Completed</option>
+                                    <% } else { %>
+                                        <option value="Completed">Completed</option>
+                                    <% } %>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                </select>
+                            </form>
+                        </div>
+                        <div class="col-2 size">
+                            <%= moment(order.createdAt).format('hh:mm A') %>
+                        </div>
+    
+                    </div>
+                    <hr style="margin-bottom: 25px;border-bottom: 3px solid black;">
+    
+                </div>
+                <% } %>
+            </div>
+        </div>
+       <% } else { %>
+        <div class="mb-2" style="display: flex;justify-content: center;">
+            <img src="https://pbs.twimg.com/profile_images/571523993903976448/y9jFFs3e_400x400.png"/>
+        </div>
+        <div style="display: flex;justify-content: center;">
+            <h2>NO ORDERS PLACED YET!</h2>
+        </div>
+       <% } %>
+
+    </div>
+</body>
+<script>
+    // stringify the data passed from router to ejs (within the EJS template only)
+    var parsed_data = '<%- JSON.stringify(currentUser) %>'  
+   
+</script>
+<script type="module" src="/js/adminOrder.js"></script>

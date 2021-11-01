@@ -1,0 +1,182 @@
+<% layout('../layouts/boilerplate') %>
+
+<style>
+      .status ul{
+          margin-left: 84px;
+      }
+    .status ul li{
+        list-style: none;
+        margin-bottom: 60px;
+    }
+    .status ul li span{
+        position: relative;
+        padding-left: 20px;
+        
+    }
+    .status ul li span::after{
+        content: '';
+        position: absolute;
+        left: -10px;
+        top: 50%;
+        width: 10px;
+        height: 10px;
+        background: black;
+        border-radius: 50%;
+        transform: translateY(-5px);
+        box-shadow: 0 0 1px 10px rgb(255, 255, 255);
+    }
+    /* icons */
+    .status ul li span::before{
+       
+        font-family: "Line Awesome Free";
+        font-size: 46px;
+        font-weight: 600;
+        position: absolute;
+        left: -90px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: inherit;
+    }
+
+    .status ul li:nth-child(1) span::before{
+        content: '\f46c';
+    }
+    .status ul li:nth-child(2) span::before{
+        content: '\f560';
+    }
+    .status ul li:nth-child(3) span::before{
+        content: '\f818';
+    }
+    .status ul li:nth-child(4) span::before{
+        content: '\f0d1';
+    }
+    .status ul li:nth-child(5) span::before{
+        content: '\f582';
+    }
+    .status ul li{
+        position: relative;
+    }
+
+    .status ul li::before {
+        content: '';
+        position: absolute;
+        top:0;
+        left: -6px;
+        width: 2px;
+        height: 80px;
+        background: black;
+    }
+    .status ul li:nth-child(5) span::after{
+        box-shadow: 0 20 1px 20px rgb(255 255 255)
+    }
+
+    .status ul li:nth-child(5)::before{
+        width: 0px;
+    }
+
+    .status ul li.step-completed::before{
+        background: #c0bcbc;
+    }
+    .status ul li.step-completed span::after{
+        background: #c0bcbc;
+    }
+    .status ul li.step-completed span{
+        color: #c0bcbc;
+    }
+
+    .status ul li.step-inprocess span::after{
+        background: orangered;
+    }
+    .status ul li.step-inprocess span{
+        color: orangered;
+    }
+    
+
+
+    .title{
+        display: flex;
+        justify-content:  space-between;
+        align-items: center;
+        font-family: monospace;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+    }
+    .title2{
+        display: flex;
+        justify-content:  space-between;
+        align-items: center;
+        font-family: unset;
+        font-size: 15px;
+        text-transform: uppercase;
+        margin-bottom: 40px;
+    }
+    ::marker {
+        color: brown;
+    }
+    .done{
+        color: lightgray;
+        
+    }
+    #border{
+        height: 40px;
+        border-left: 2px solid black;
+        position: relative;
+        left: -15px;
+    }
+    .notdone{
+        color: black;
+    }
+    @media screen and (max-width: 750px) {
+        .container{
+            padding-left: 7px;
+            padding-right: 7px;
+        }
+        .title{
+            display: block;
+            text-align: center;
+        }
+        .title2{
+            display: block;
+            text-align: center;
+        }
+        .fontSize1{
+            font-size: 18px;
+        }
+        .fontSize2{
+            font-size: 14px;
+            font-weight: 300;
+        }
+    }
+
+</style>
+
+<body>
+    <% console.log(order) %>
+    <div class="container mt-3">
+        <div class="title">
+            <h3 class="fontSize1">Track Delivery Status  </h3>
+            <h5 class="fontSize2"><%= order._id %></h5>
+        </div>
+        <div class="title2">
+            <h5><span class="fontSize2">PAYMENT METHOD: </span> <span class="fontSize1"><%= order.paymentMethod %></span></h5>
+            <h5><span  class="fontSize2">STATUS: </span><span class="fontSize1"><%- order.paymentStatus ?  "PAID" : "UNPAID" %></span></h5>
+        </div>
+        <div class="status">
+            <ul>
+                <li class="status-line" data-status="order_placed"><span>Order Placed</span></li>
+                <li class="status-line"  data-status="Confirmed"><span>Order Confirmation</span></li>
+                <li class="status-line"  data-status="Prepared"><span>Preparation</span></li>
+                <li class="status-line"  data-status="Delivered"><span>Out for delivery</span></li>
+                <li class="status-line"  data-status="Completed"><span>Complete</span></li>
+            </ul>
+        </div>
+    </div>
+    <!-- <h1>Status: <span id="status"><%= order.status  %></span></h1> -->
+</body>
+
+<script>
+    // stringify the data passed from router to ejs (within the EJS template only)
+    var parsed_data = '<%- JSON.stringify(order) %>'  
+   
+</script>
+<script  src="/js/status.js"></script>

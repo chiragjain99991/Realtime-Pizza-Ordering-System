@@ -11,6 +11,7 @@
     .text2{
 
         background-color: rgba(230, 134, 179, 0.4);
+        height: 21.5rem;
    
 
     }
@@ -19,37 +20,189 @@
         /* margin: auto; */
         text-align: center;
         color: rgb(65, 12, 12);
-        margin-top: 13%;
+        margin-top: 11%;
         font-weight: bolder;
         font-family: cursive;
         font-size: larger;
+        
     }
     .text1 h1{
         font-size: 45px;
         font-weight: bolder;
     }
+    .heading{
+        text-align: center;
+        color: darkred;
+        font-family: monospace;
+    }
+    .pizza-card{
+        text-align: center;
+        background-color: #f4e6ed;
+        border: 1px solid lightgray;
+        border-radius: 20px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+    .pizza-image{
+        height: 70%;
+    }
+    .pizza-image img{
+        width: 60%;
+    }
+    .pizza-title{
+        font-size: 24px;
+        font-weight: 700;
+        font-family: cursive;
+        margin-top: 15px;
+        color: #8f2033;
+    }
+    .pizza-size{
+        margin-top: 15px;
+        margin-bottom: 10px;
+    }
+    .pizza-size .size{
+        padding:5px 20px;
+        background-color: lightpink;
+        border-radius: 15px;
+        background-color: whitesmoke;
+        border: 2px solid #c74a60;
+        font-size: 17px;
+        font-weight: 300;
+        color: darkred;
+    }
+    .pizza-bottom{
+        display: flex;
+        justify-content: space-between ;
+        margin-top: 43px;
+    }
+    .pizza-bottom .price{
+        font-size: 20px;
+        font-weight: 600;
+        color: #8f2033;
+        margin-left: 15px;
+    }
+    .pizza-bottom .addToCart .add{
+        border: none;
+        outline: none;
+        padding: 4px 15px;
+        border-radius: 35px;
+        background-color: #8f2033;
+        color: #f4e6ed;
+        margin-right: 15px;
+        /* margin-left: 120px; */
+        border: 1px solid #8f2033;
+        cursor: pointer;
+    }
+    .pizza-bottom .addToCart .delete{
+        border: none;
+        outline: none;
+        background: none;
+        color: #8f2033;
+        cursor: pointer;
+        margin-left: 10px;
+    }
+
+    .editDelete{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .bottonJumbo{
+        height: 80%;
+    }
+
+    .main{
+        margin-bottom: 100px;
+        margin-top: 50px;
+    }
+
+    @media screen and (max-width: 480px) {
+        .main{
+            margin-bottom: 0px;
+            margin-top: 20px;
+        }
+
+        .hide{
+            display: none;
+        }
+        .text2{
+            height: 100%;
+        }
+    }
+
 </style>
 <body>
-    <div class="container mt-3 " >
-        <div class="row">
-            <div class="col-4 px-0 long">
+    <div class="main container-fluid" >
+        
+        <div   class="row mx-1">
+            <div class="hide col-4 px-0 long">
                 <img width="100%" src="https://images.unsplash.com/photo-1528490060256-c345efae4442?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80">
             </div>
-            <div class="col-4 px-0">
+            <div class="hide col-4 px-0">
                 <img width="100%"
                     src="https://images.unsplash.com/photo-1611007304706-279fe3d29bda?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80">
             </div>
-            <div class="col-4 px-0">
+            <div class="hide col-4 px-0">
                 <img width="100%"
                     src="https://images.unsplash.com/photo-1520201163981-8cc95007dd2a?ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8cGl6emElMjBzbGljZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">
             </div>
-            <div class="text2 col-6"><div class="text1"><h1>PIZZA<br> BY THE SLICE</h1></div></div>
+        </div>
+        <div class="row mx-1">
+            <div  class=" text2 col-12 col-md-6"><div class="text1"><h1>PIZZA<br> BY THE CHEESE</h1></div></div>
            
-            <div class="col-6 px-0">
-                <img width="100%" src="https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80" alt="">
+            <div class=" col-12 col-md-6 px-0 ">
+                <img height="70%" width="100%" src="https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80" alt="">
             </div>
         </div>
     </div>
-</body> 
+    <div class="heading">
+        <h1>ALL PIZZA'S</h1>
+    </div>
+    <div class="container-fluid mt-3">
+        <!-- <h1>All Pizzas</h1> -->
+
+        <div class="row">
+            <% for(let pizza of pizzas) { %>
+                <div class="col-12 col-sm-6 col-md-4 col-xl-3 px-0 p-3">
+                    <div class="pizza-card">
+                        <div class="pizza-image"><img src="/images/pizza.png"></div>
+                        <div class="pizza-title"><%= pizza.name %></div>
+                        <div class="pizza-size"><span class="size"><%= pizza.size %></span></div>
+                        <div class="pizza-bottom">
+                            <div class="price">$<%= pizza.price %></div>
+                            
+                                <div class="addToCart">
+                                    <% if(currentUser) { %>
+
+                                        <% if(currentUser.email !== "admin567@gmail.com"){ %>
+                                            <form action="/pizza/<%= pizza._id %>/addToCart/<%= currentUser._id  %>" method="POST">
+                                                <button class="add">ADD</button>
+                                            </form>   
+                                        <% } else { %>
+                                            <div class="editDelete">
+                                                <a href="/updatepizza/<%= pizza._id %>"><img width="30px" height="30px" src="/images/edit-icon.png"></a>
+                                                <form method="POST" action="/pizza/<%= pizza._id %>?_method=DELETE">
+                                                    
+                                                    <button class="delete" type="submit"><img width="30px" height="30px" src="/images/delete-icon.png"></button>
+                                                </form>
+                                            </div>
+                                        <% } %>  
+                                    <% } else  { %>    
+                                     <form action="/pizza/<%= pizza._id %>/addToCart/abcdef" method="POST">
+                                        <button class="add">ADD</button>
+                                       </form>  
+                                        
+                                     <% } %>              
+                                </div>
+                           
+                               
+                           
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+    </div>
+    </div>
+</body>
 
 
